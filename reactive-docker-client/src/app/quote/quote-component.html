@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-8">
+    <p>
+      <button (click)="requestQuoteStream()">Reactive Request</button>
+    </p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Quote ID</th>
+        <th>Book</th>
+        <th>Quote content</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let quote of quoteArray" [class.success]="quote === selectedQuote" (click)="onSelect(quote)">
+        <td>{{quote.id}}</td>
+        <td>{{quote.book}}</td>
+        <td>{{quote.content.substr(0, 30)}}...</td>
+      <tr>
+      </tbody>
+    </table>
+  </div>
+</div>
