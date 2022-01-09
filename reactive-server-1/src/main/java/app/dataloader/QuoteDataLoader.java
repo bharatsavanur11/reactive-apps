@@ -14,8 +14,8 @@ import reactor.core.publisher.Mono;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
@@ -50,6 +50,7 @@ public class QuoteDataLoader implements ApplicationRunner {
         reactiveMongoTemplate.dropCollection("quotes").block();
 
         CountDownLatch latch = new CountDownLatch(1);
+        reactiveMongoTemplate.dropCollection("quotes");
         Mono<MongoCollection<Document>> collection = reactiveMongoTemplate.getCollection("quotes");
         System.out.println("Inside Data Loader");
 
@@ -64,7 +65,7 @@ public class QuoteDataLoader implements ApplicationRunner {
                                     .subscribe(quote->{
                                         System.out.println(Thread.currentThread().getName());
                                         // This is just synchronous execution wrapped in Flux.
-                                        reactiveMongoTemplate.insert(new Quote(idGenerator.get(), "Quote", quote), "quotes").block();// blocks the main thread
+                                        reactiveMongoTemplate.insert(new Quote(UUID.randomUUID().toString(), "Quote", quote), "quotes").block();// blocks the main thread
                                         // and hence all the lines below works
                                         // This line makes it reactive and parallel .subscribe(s->System.out.println(Thread.currentThread().getName()));
                                     });

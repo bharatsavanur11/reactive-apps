@@ -28,13 +28,13 @@ import java.util.logging.Logger;
  *
  */
 @Component
-public class QuoteDataLoader implements ApplicationRunner {
+public class PersonDataLoader implements ApplicationRunner {
 
     private static final Logger log = Logger.getLogger("QuoteDataLoader");
 
     private final ReactiveMongoTemplate reactiveMongoTemplate;
 
-    public QuoteDataLoader(ReactiveMongoTemplate reactiveMongoTemplate) {
+    public PersonDataLoader(ReactiveMongoTemplate reactiveMongoTemplate) {
         this.reactiveMongoTemplate = reactiveMongoTemplate;
     }
 
